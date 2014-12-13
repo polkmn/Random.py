@@ -1,6 +1,8 @@
 from Tkinter import *
 import tkMessageBox as Msgbox
+import os
 import random
+import string
 class Start:
     def __init__(self):
         self.main = Tk()
@@ -42,19 +44,24 @@ class Program:
         self.optionMenu = Menu(self.menuBar, tearoff=0)
         self.menuBar.add_cascade(label='Option', menu=self.optionMenu)
         self.optionMenu.add_command(label='Number', command=self.num_random)
-        self.optionMenu.add_command(label='Update..Soon', command='null')
+        self.optionMenu.add_command(label='Colors', command=self.color_random)
+        self.optionMenu.add_command(label='Other random', command=self.open_other)
 
         self.HelpMenu = Menu(self.menuBar, tearoff=0)
         self.menuBar.add_cascade(label="Help", menu=self.HelpMenu)
         self.HelpMenu.add_command(label="Developer", command=self.author_window)
         main.config(menu=self.menuBar)
 
+    def open_other(self):
+        other = Other()
+    
     def author_window(self):
         #Author Menu Window
         def thatOk():
           about.destroy()
         about = Toplevel(start.main, bg='#000000')
         about.geometry('200x100')
+        about.iconbitmap('favicon.ico')
         about.resizable(width=FALSE, height=FALSE)
         about.title("Author")
         about_message = "  Developer:\nTeerawat 57070057\nMongkol 57070093"
@@ -67,6 +74,7 @@ class Program:
         #Random_number
         self.num_ran = Toplevel(start.main, bg='#000000')
         self.num_ran.geometry('300x300')
+        self.num_ran.iconbitmap('favicon.ico')
         self.num_ran.resizable(width=FALSE, height=FALSE)
         self.num_ran.title("Random Number")
         #entries
@@ -76,6 +84,9 @@ class Program:
         self.fillnum2.config(width=5, font = ('', 14))
         self.resnum = self.numfill(values.resnum)
         self.resnum.config(width=10, state='readonly', readonlybackground='#FFFFFF', font = ('', 16))
+        #label
+        self.label_start = self.numlabel(self.num_ran, 'Start')
+        self.label_stop = self.numlabel(self.num_ran, 'Stop')
         #button
         self.button = Button(self.num_ran, text = 'RANDOM!', command = self.rannum)
         self.button.config(height = 1, width = 9)
@@ -84,6 +95,25 @@ class Program:
         self.button.place(x=112, y=125)
         self.fillnum2.place(x=203, y=125)
         self.resnum.place(x=85, y=200)
+        self.label_start.place(x=30, y=80)
+        self.label_stop.place(x=200, y=80)
+
+    def color_random(self):
+        #Random color
+        self.color_ran = Toplevel(start.main, bg='#000000')
+        self.color_ran.geometry('200x200')
+        self.color_ran.iconbitmap('favicon.ico')
+        self.color_ran.resizable(width=FALSE, height=FALSE)
+        self.color_ran.title("Random Colors")
+        #entries
+        self.resc = self.colorfill(values.res)
+        self.resc.config(width=8, state='readonly', readonlybackground='#FFFFFF', font = ('', 20))
+        #button
+        self.buttonc = Button(self.color_ran, text = 'RANDOM!!', command = self.rancolor)
+        self.buttonc.config(width=9, height=1)
+        #pack
+        self.buttonc.place(x=65, y=100)
+        self.resc.place(x=39, y=150)
         
         
     
@@ -99,9 +129,17 @@ class Program:
         #create entry for numran
         return Entry(self.num_ran, textvariable = var, bg = '#FFFFFF')
 
+    def colorfill(self, var):
+        #create entry for numran
+        return Entry(self.color_ran, textvariable = var, bg = '#FFFFFF')
+
     def textlabel(self, main, your_text, color = '#FFFFFF'):
         #Create Label
         return Label(start.main, text = your_text, bg = 'black', fg = color)
+
+    def numlabel(self, main, your_text, color = '#FFFFFF'):
+        #Create Label
+        return Label(self.num_ran, text = your_text, bg = 'black', fg = color, font = ('', 20))
 
     def random(self):
         fill1 = values.filltext.get()
@@ -120,7 +158,13 @@ class Program:
         else:
             resn = random.choice(data)
             values.resnum.set('%s' % resn)
+
+    def rancolor(self):
+        res = random.choice(values.lst_data)
+        values.res.set('%s' % res)
         
+    def call_rancolor(self, event):
+        self.rancolor()
 
     def call_random(self, event):
         self.random()
@@ -143,8 +187,153 @@ class Values:
             self.fillnum1 = IntVar()
             self.fillnum2 = IntVar()
             self.resnum = StringVar()
+            self.color = open('color.txt')
+            self.data = ''
+            for line in self.color:
+                self.data += line
+            self.lst_data = self.data.split(',')
+            self.color.close()
+#-----------------------------------------------------------------------------------------------------other part
+class Other:
+    def __init__(self):
+        root = Tk()
+        root.title('Content Random')
+        root.geometry('150x155')
+        root.iconbitmap('favicon.ico')
+        def get_new_win(ress, defi):
+            newwin = Toplevel(root)
+            if defi == 1:
+                for i in ress:
+                    Label(newwin, text=i).pack(fill=X)
+            if defi in [2, 3, 4, 5]:
+                Label(newwin, text=ress).pack(fill=X)
+    
+            Button(newwin,text='Again',command=lambda:again(defi)).pack(side=LEFT)
+            Button(newwin,text='Quit',command=newwin.destroy).pack(side=RIGHT)
+            def again(check):
+                newwin.destroy()
+                if check == 1:
+                    random_res()
+                if check == 2:
+                    res_min_max()
+                if check == 3:
+                    res_str()
+                if check == 4:
+                    res_choice()
+                if check == 5:
+                    res_az()
+        #------------------------------------------------
+        def ran_list():
+            """random for n item"""
+            window = Toplevel(root)
+            window.iconbitmap('favicon.ico')
+            get_in = StringVar()
+            n1 = IntVar()
+            Label(window, text="Insert Here (space for each").pack(fill=X)
+            Entry(window, textvariable=get_in).pack()
+            Label(window, text="Insert Ranking Number").pack(fill=X)
+            Entry(window, textvariable=n1).pack()
+            global random_res
+            def random_res():
+                get_input = get_in.get()
+                req = str(get_input).split()
+                n = n1.get()
+                res = []
+                for i in range(1, n+1):
+                    res.append(str(i)+':' + req[random.randint(0, len(req)-1)])
+                get_new_win(res, 1)
             
-
+            Button(window, text="Submit", command=random_res).pack(fill=X)
+            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+        #-------------------------------------------------
+        def ran_min_max():
+            """random number min to max"""
+            window = Toplevel(root)
+            window.iconbitmap('favicon.ico')
+            get1 = IntVar()
+            get2 = IntVar()
+            Label(window, text="Min").pack(fill=X)
+            Entry(window, textvariable=get1).pack()
+            Label(window, text="Max").pack(fill=X)
+            Entry(window, textvariable=get2).pack()
+            global res_min_max 
+            def res_min_max():
+                minn = get1.get()
+                maxx = get2.get()
+                get_new_win(random.randint(minn, maxx), 2)
+            Button(window, text="Submit", command=res_min_max).pack(fill=X)
+            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+        #-------------------------------------------------
+        def ran_str():
+            """random password"""
+            window = Toplevel(root)
+            window.iconbitmap('favicon.ico')
+            n0 = IntVar()
+            Label(window, text="Length Password").pack(fill=X)
+            Entry(window, textvariable=n0).pack()
+            global res_str
+            def res_str():
+                n = n0.get()/2
+                digits = "".join([random.choice(string.digits) for i in range(n)])
+                chars = "".join([random.choice(string.ascii_letters) for i in range(n)])
+                result = digits + chars
+                if len(result) != (n*2)+1:
+                    result += str(random.choice(string.ascii_letters))
+                res = ''.join(random.sample(result, len(result)))
+                get_new_win(res, 3)
+            Button(window, text="Submit", command=res_str).pack(fill=X)
+            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+        #--------------------------------------------------
+        def random_choice():
+            """ random simply """
+            window = Toplevel(root)
+            window.iconbitmap('favicon.ico')
+            get_in = StringVar()
+            Label(window, text="Insert Here (space for each").pack(fill=X)
+            Entry(window, textvariable=get_in).pack()
+            global res_choice
+            def res_choice():
+                list_t = get_in.get()
+                listt = list_t.split()
+                ress = random.choice(listt)
+                get_new_win(ress, 4)
+            Button(window, text="Submit", command=res_choice).pack(fill=X)
+            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+        #--------------------------------------------------
+        def random_a_to_z():
+            window = Toplevel(root)
+            window.iconbitmap('favicon.ico')
+            upp = IntVar()
+            low = IntVar()
+            Checkbutton(window, text="Uppercase", variable=upp).pack(fill=X)
+            Checkbutton(window, text="Lowercase", variable=low).pack(fill=X)
+            global res_az
+            def res_az():
+                check = upp.get()
+                check2 = low.get()
+                if check == 1:
+                    ress = random.choice(string.ascii_uppercase)
+                if check + check2 == 2:
+                    ress = random.choice(string.ascii_letters)
+                else:
+                    ress = random.choice(string.ascii_lowercase)
+                get_new_win(ress, 5)
+             
+            Button(window, text="Submit", command=res_az).pack(fill=X)
+            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+        #--------------------------------------------------
+        
+        #--------------------------------------------------
+            
+        Button(root, text="Ranking", command=ran_list).pack(fill=X)
+        Button(root, text="Random Number", command=ran_min_max).pack(fill=X)
+        Button(root, text="Random string", command=ran_str).pack(fill=X)
+        Button(root, text="Random from ur list", command=random_choice).pack(fill=X)
+        Button(root, text="Random A to Z", command=random_a_to_z).pack(fill=X)
+        Button(root, text="Quit", command=root.destroy).pack(fill=X)
+        root.mainloop()
+    
+#---------------------------------------------------------------------------------------------------------------
 
 start = Start()
 values = Values()
