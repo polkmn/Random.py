@@ -35,6 +35,8 @@ class Program:
         #Button
         self.button = Button(main, text = 'RANDOM!', command = self.random)
         self.button.config(height = 1, width = 9)
+        self.button_content = Button(main, text = "More Option Random", command=self.open_other)
+        self.button_content.config(height = 1, width = 55)
         #MenuBar
         self.menuBar = Menu(main)
         self.fileMenu = Menu(self.menuBar, tearoff=0)
@@ -101,8 +103,8 @@ class Program:
     def color_random(self):
         #Random color
         self.color_ran = Toplevel(start.main, bg='#000000')
-        self.color_ran.geometry('200x200')
         self.color_ran.iconbitmap('favicon.ico')
+        self.color_ran.geometry("150x70")
         self.color_ran.resizable(width=FALSE, height=FALSE)
         self.color_ran.title("Random Colors")
         #entries
@@ -112,8 +114,8 @@ class Program:
         self.buttonc = Button(self.color_ran, text = 'RANDOM!!', command = self.rancolor)
         self.buttonc.config(width=9, height=1)
         #pack
-        self.buttonc.place(x=65, y=100)
-        self.resc.place(x=39, y=150)
+        self.buttonc.pack()
+        self.resc.pack()
         
         
     
@@ -175,10 +177,11 @@ class Program:
     def guipack(self):
         #place position
         self.fill.place(x = 32, y = 190)
-        self.restext.place(x = 50, y = 290)
+        self.restext.place(x = 48, y = 270)
         self.button.place(x = 160, y = 240)
         self.text.place(x = 10, y = 355)
         self.text2.place(x = 31, y = 218)
+        self.button_content.place(x = 3, y = 320)
 
 class Values:
         def __init__(self):
