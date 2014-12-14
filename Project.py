@@ -193,10 +193,11 @@ class Values:
                 self.data += line
             self.lst_data = self.data.split(',')
             self.color.close()
-#-----------------------------------------------------------------------------------------------------other part
+
 class Other:
+    #----More Option part----
     def __init__(self):
-        root = Tk()
+        root = Toplevel(start.main, bg='#000000')
         root.title('Content Random')
         root.geometry('150x155')
         root.iconbitmap('favicon.ico')
@@ -227,9 +228,10 @@ class Other:
             """random for n item"""
             window = Toplevel(root)
             window.iconbitmap('favicon.ico')
+            window.title('Ranking')
             get_in = StringVar()
             n1 = IntVar()
-            Label(window, text="Insert Here (space for each").pack(fill=X)
+            Label(window, text="Insert Here (space for each)").pack(fill=X)
             Entry(window, textvariable=get_in).pack()
             Label(window, text="Insert Ranking Number").pack(fill=X)
             Entry(window, textvariable=n1).pack()
@@ -250,6 +252,7 @@ class Other:
             """random number min to max"""
             window = Toplevel(root)
             window.iconbitmap('favicon.ico')
+            window.title('Random Number')
             get1 = IntVar()
             get2 = IntVar()
             Label(window, text="Min").pack(fill=X)
@@ -268,6 +271,7 @@ class Other:
             """random password"""
             window = Toplevel(root)
             window.iconbitmap('favicon.ico')
+            window.title('Random string')
             n0 = IntVar()
             Label(window, text="Length Password").pack(fill=X)
             Entry(window, textvariable=n0).pack()
@@ -288,6 +292,7 @@ class Other:
             """ random simply """
             window = Toplevel(root)
             window.iconbitmap('favicon.ico')
+            window.title('Random from list')
             get_in = StringVar()
             Label(window, text="Insert Here (space for each").pack(fill=X)
             Entry(window, textvariable=get_in).pack()
@@ -302,7 +307,7 @@ class Other:
         #--------------------------------------------------
         def random_a_to_z():
             window = Toplevel(root)
-            window.iconbitmap('favicon.ico')
+            window.title('Random A-Z')
             upp = IntVar()
             low = IntVar()
             Checkbutton(window, text="Uppercase", variable=upp).pack(fill=X)
@@ -313,14 +318,16 @@ class Other:
                 check2 = low.get()
                 if check == 1:
                     ress = random.choice(string.ascii_uppercase)
+                if check == 0:
+                    ress = random.choice(string.ascii_lowercase)
                 if check + check2 == 2:
                     ress = random.choice(string.ascii_letters)
-                else:
-                    ress = random.choice(string.ascii_lowercase)
+
                 get_new_win(ress, 5)
-             
+     
             Button(window, text="Submit", command=res_az).pack(fill=X)
             Button(window, text="Quit", command=window.destroy).pack(fill=X)
+
         #--------------------------------------------------
         
         #--------------------------------------------------
@@ -331,7 +338,7 @@ class Other:
         Button(root, text="Random from ur list", command=random_choice).pack(fill=X)
         Button(root, text="Random A to Z", command=random_a_to_z).pack(fill=X)
         Button(root, text="Quit", command=root.destroy).pack(fill=X)
-        root.mainloop()
+        
     
 #---------------------------------------------------------------------------------------------------------------
 
