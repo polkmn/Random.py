@@ -7,7 +7,7 @@ Sample GUI from Tkinter for generate random result
 
 Installation
 ---------
-Placing all files in same directory (BG.gif, Project.py, color.txt, favicon.ico)
+Placing all files in same directory (BGF.gif, Project.py, color.txt, favicon.ico)
 and run Project.py
 
 How to use ?
