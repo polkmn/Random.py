@@ -240,7 +240,7 @@ class Other:
             if defi == 1:
                 for i in ress:
                     Label(newwin, text=i).pack(fill=X)
-            if defi in [2, 3, 4, 5]:
+            if defi in [2, 3]:
                 Label(newwin, text=ress).pack(fill=X)
             Button(newwin,text='Again',command=lambda:again(defi)).pack(side=LEFT)
             Button(newwin,text='Quit',command=newwin.destroy).pack(side=RIGHT)
@@ -249,12 +249,8 @@ class Other:
                 if check == 1:
                     random_res()
                 if check == 2:
-                    res_min_max()
-                if check == 3:
                     res_str()
-                if check == 4:
-                    res_choice()
-                if check == 5:
+                if check == 3:
                     res_az()
         #------------------------------------------------
         def ran_list():
@@ -281,25 +277,7 @@ class Other:
             
             Button(window, text="Submit", command=random_res).pack(fill=X)
             Button(window, text="Quit", command=window.destroy).pack(fill=X)
-        #-------------------------------------------------
-        def ran_min_max():
-            """random number min to max"""
-            window = Toplevel(root)
-            window.iconbitmap('favicon.ico')
-            window.title('Random Number')
-            get1 = IntVar()
-            get2 = IntVar()
-            Label(window, text="Min").pack(fill=X)
-            Entry(window, textvariable=get1).pack()
-            Label(window, text="Max").pack(fill=X)
-            Entry(window, textvariable=get2).pack()
-            global res_min_max 
-            def res_min_max():
-                minn = get1.get()
-                maxx = get2.get()
-                get_new_win(random.randint(minn, maxx), 2)
-            Button(window, text="Submit", command=res_min_max).pack(fill=X)
-            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+
         #-------------------------------------------------
         def ran_str():
             """random password"""
@@ -319,26 +297,10 @@ class Other:
                 if check % 2 != 0:
                     result += str(random.choice(string.ascii_letters))
                 res = ''.join(random.sample(result, len(result)))
-                get_new_win(res, 3)
+                get_new_win(res, 2)
             Button(window, text="Submit", command=res_str).pack(fill=X)
             Button(window, text="Quit", command=window.destroy).pack(fill=X)
-        #--------------------------------------------------
-        def random_choice():
-            """ random simply """
-            window = Toplevel(root)
-            window.iconbitmap('favicon.ico')
-            window.title('Random from list')
-            get_in = StringVar()
-            Label(window, text="Insert Here (space for each").pack(fill=X)
-            Entry(window, textvariable=get_in).pack()
-            global res_choice
-            def res_choice():
-                list_t = get_in.get()
-                listt = list_t.split()
-                ress = random.choice(listt)
-                get_new_win(ress, 4)
-            Button(window, text="Submit", command=res_choice).pack(fill=X)
-            Button(window, text="Quit", command=window.destroy).pack(fill=X)
+
         #--------------------------------------------------
         def random_a_to_z():
             '''random character A-Z'''
@@ -359,7 +321,7 @@ class Other:
                 if check + check2 == 2:
                     ress = random.choice(string.ascii_letters)
 
-                get_new_win(ress, 5)
+                get_new_win(ress, 3)
      
             Button(window, text="Submit", command=res_az).pack(fill=X)
             Button(window, text="Quit", command=window.destroy).pack(fill=X)
@@ -369,9 +331,7 @@ class Other:
         #--------------------------------------------------
             
         Button(root, text="Ranking", command=ran_list).pack(fill=X)
-        Button(root, text="Random Number", command=ran_min_max).pack(fill=X)
         Button(root, text="Random Password", command=ran_str).pack(fill=X)
-        Button(root, text="Random from ur list", command=random_choice).pack(fill=X)
         Button(root, text="Random A to Z", command=random_a_to_z).pack(fill=X)
         Button(root, text="Quit", command=root.destroy).pack(fill=X)
         
