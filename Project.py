@@ -211,7 +211,6 @@ class Other:
                     Label(newwin, text=i).pack(fill=X)
             if defi in [2, 3, 4, 5]:
                 Label(newwin, text=ress).pack(fill=X)
-    
             Button(newwin,text='Again',command=lambda:again(defi)).pack(side=LEFT)
             Button(newwin,text='Quit',command=newwin.destroy).pack(side=RIGHT)
             def again(check):
@@ -274,17 +273,18 @@ class Other:
             """random password"""
             window = Toplevel(root)
             window.iconbitmap('favicon.ico')
-            window.title('Random string')
+            window.title('Random Password')
             n0 = IntVar()
             Label(window, text="Length Password").pack(fill=X)
             Entry(window, textvariable=n0).pack()
             global res_str
             def res_str():
                 n = n0.get()/2
+                check = n0.get()
                 digits = "".join([random.choice(string.digits) for i in range(n)])
                 chars = "".join([random.choice(string.ascii_letters) for i in range(n)])
                 result = digits + chars
-                if len(result) != (n*2)+1:
+                if check % 2 != 0:
                     result += str(random.choice(string.ascii_letters))
                 res = ''.join(random.sample(result, len(result)))
                 get_new_win(res, 3)
@@ -337,7 +337,7 @@ class Other:
             
         Button(root, text="Ranking", command=ran_list).pack(fill=X)
         Button(root, text="Random Number", command=ran_min_max).pack(fill=X)
-        Button(root, text="Random string", command=ran_str).pack(fill=X)
+        Button(root, text="Random Password", command=ran_str).pack(fill=X)
         Button(root, text="Random from ur list", command=random_choice).pack(fill=X)
         Button(root, text="Random A to Z", command=random_a_to_z).pack(fill=X)
         Button(root, text="Quit", command=root.destroy).pack(fill=X)
