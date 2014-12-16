@@ -1,3 +1,11 @@
+"""
+PSIT PROJECT: All Random
+Language: Python 2.7.8
+Author: Teerawat & Mongkol
+GUI: Tkinter
+Version: 1.0.0 Beta
+Date: 30/11/57 - 17/12/57
+"""
 from Tkinter import *
 import tkMessageBox as Msgbox
 import os
@@ -5,6 +13,7 @@ import random
 import string
 class Start:
     def __init__(self):
+        """part of main gui"""
         self.main = Tk()
         self.main.iconbitmap('favicon.ico')
         self.main.title('All Random')
@@ -12,10 +21,11 @@ class Start:
         self.main.resizable(width=FALSE, height=FALSE)
         self.main.configure(background = '#000000')
     def run(self):
-        canvas = Canvas(self.main, bd = 0, bg='#000000', width=400, height=160, highlightthickness=0, relief='ridge')
+        """Run GUI"""
+        canvas = Canvas(self.main, bd = 0, bg='#000000', width=400, height=180, highlightthickness=0, relief='ridge')
         canvas.pack()
-        logo = PhotoImage(file = "bg.gif")
-        canvas.create_image(200, 80, image=logo)
+        logo = PhotoImage(file = "BGF.gif")
+        canvas.create_image(170, 95, image=logo)
 
         mainGUI = Program(self.main)
         mainGUI.guipack()
@@ -23,6 +33,7 @@ class Start:
 
 class Program:
     def __init__(self, main):
+        '''part of edit gui'''
         #edit gui here
          #Label
         self.text = self.textlabel(main, 'By Teerawat And Mongkol')
@@ -55,9 +66,11 @@ class Program:
         main.config(menu=self.menuBar)
 
     def open_other(self):
+        '''open content or option window'''
         other = Other()
     
     def author_window(self):
+        '''open gui author window'''
         #Author Menu Window
         def thatOk():
           about.destroy()
@@ -73,6 +86,7 @@ class Program:
         button.place(x = 155, y = 75)
 
     def num_random(self):
+        '''part of anything randomizations'''
         #Random_number
         self.num_ran = Toplevel(start.main, bg='#000000')
         self.num_ran.geometry('300x300')
@@ -101,6 +115,7 @@ class Program:
         self.label_stop.place(x=200, y=80)
 
     def color_random(self):
+        '''part of color randomization'''
         #Random color
         self.color_ran = Toplevel(start.main, bg='#000000')
         self.color_ran.iconbitmap('favicon.ico')
@@ -120,30 +135,37 @@ class Program:
         
     
     def exit_window(self):
+        '''exit program command'''
         self.quit = exit()
         return
     
     def textfill(self, var):
+        '''method for entry text'''
         #create entry
         return Entry(start.main, textvariable = var, bg = '#FFFFFF')
 
     def numfill(self, var):
+        '''method for entry number text fill'''
         #create entry for numran
         return Entry(self.num_ran, textvariable = var, bg = '#FFFFFF')
 
     def colorfill(self, var):
+        '''method for entry show color's already random'''
         #create entry for numran
         return Entry(self.color_ran, textvariable = var, bg = '#FFFFFF')
 
     def textlabel(self, main, your_text, color = '#FFFFFF'):
+        '''show text on gui'''
         #Create Label
         return Label(start.main, text = your_text, bg = 'black', fg = color)
 
     def numlabel(self, main, your_text, color = '#FFFFFF'):
+        '''show the number on gui'''
         #Create Label
         return Label(self.num_ran, text = your_text, bg = 'black', fg = color, font = ('', 20))
 
     def random(self):
+        '''list random processing'''
         fill1 = values.filltext.get()
         if fill1 == "":
             Msgbox.showerror('Error!', 'Fill some text in entry')
@@ -152,6 +174,7 @@ class Program:
             values.res.set('%s' % res)
 
     def rannum(self):
+        '''number random processing'''
         fill1 = values.fillnum1.get()
         fill2 = values.fillnum2.get()
         data = range(fill1, fill2 + 1)
@@ -162,19 +185,24 @@ class Program:
             values.resnum.set('%s' % resn)
 
     def rancolor(self):
+        '''random color processing'''
         res = random.choice(values.lst_data)
         values.res.set('%s' % res)
         
     def call_rancolor(self, event):
+        '''start random colors'''
         self.rancolor()
 
     def call_random(self, event):
+        '''start random anythings'''
         self.random()
 
     def call_rannum(self, event):
+        '''start random number'''
         self.rannum()
 
     def guipack(self):
+        '''pack GUI'''
         #place position
         self.fill.place(x = 32, y = 190)
         self.restext.place(x = 48, y = 270)
@@ -184,27 +212,30 @@ class Program:
         self.button_content.place(x = 3, y = 320)
 
 class Values:
-        def __init__(self):
-            self.filltext = StringVar()
-            self.res = StringVar()
-            self.fillnum1 = IntVar()
-            self.fillnum2 = IntVar()
-            self.resnum = StringVar()
-            self.color = open('color.txt')
-            self.data = ''
-            for line in self.color:
-                self.data += line
-            self.lst_data = self.data.split(',')
-            self.color.close()
+    '''part of intialization'''
+    def __init__(self):
+        self.filltext = StringVar()
+        self.res = StringVar()
+        self.fillnum1 = IntVar()
+        self.fillnum2 = IntVar()
+        self.resnum = StringVar()
+        self.color = open('color.txt')
+        self.data = ''
+        for line in self.color:
+            self.data += line
+        self.lst_data = self.data.split(',')
+        self.color.close()
 
 class Other:
     #----More Option part----
     def __init__(self):
+        '''content window gui'''
         root = Toplevel(start.main, bg='#000000')
         root.title('Content Random')
         root.geometry('150x155')
         root.iconbitmap('favicon.ico')
         def get_new_win(ress, defi):
+            '''new window first'''
             newwin = Toplevel(root)
             if defi == 1:
                 for i in ress:
@@ -227,6 +258,7 @@ class Other:
                     res_az()
         #------------------------------------------------
         def ran_list():
+            '''new window second'''
             """random for n item"""
             window = Toplevel(root)
             window.iconbitmap('favicon.ico')
@@ -309,6 +341,7 @@ class Other:
             Button(window, text="Quit", command=window.destroy).pack(fill=X)
         #--------------------------------------------------
         def random_a_to_z():
+            '''random character A-Z'''
             window = Toplevel(root)
             window.title('Random A-Z')
             upp = IntVar()
