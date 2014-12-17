@@ -7,8 +7,8 @@ Sample GUI from Tkinter for generate random result
 
 Installation
 ---------
-Required python 2.7.8
-Placing all files in same directory (BGF.gif, Project.py, color.txt, favicon.ico)
++ Required python 2.7.8
++ Placing all files in same directory (BGF.gif, Project.py, color.txt, favicon.ico)
 and run Project.py
 
 How to use ?
