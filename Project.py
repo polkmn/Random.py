@@ -119,11 +119,10 @@ class Program:
         #Random color
         self.color_ran = Toplevel(start.main, bg='#000000')
         self.color_ran.iconbitmap('favicon.ico')
-        self.color_ran.geometry("150x70")
         self.color_ran.resizable(width=FALSE, height=FALSE)
         self.color_ran.title("Random Colors")
         #entries
-        self.resc = self.colorfill(values.res)
+        self.resc = self.colorfill(values.rescl)
         self.resc.config(width=8, state='readonly', readonlybackground='#FFFFFF', font = ('', 20))
         #button
         self.buttonc = Button(self.color_ran, text = 'RANDOM!!', command = self.rancolor)
@@ -187,7 +186,7 @@ class Program:
     def rancolor(self):
         '''random color processing'''
         res = random.choice(values.lst_data)
-        values.res.set('%s' % res)
+        values.rescl.set('%s' % res)
         
     def call_rancolor(self, event):
         '''start random colors'''
@@ -216,6 +215,7 @@ class Values:
     def __init__(self):
         self.filltext = StringVar()
         self.res = StringVar()
+        self.rescl = StringVar()
         self.fillnum1 = IntVar()
         self.fillnum2 = IntVar()
         self.resnum = StringVar()
@@ -232,7 +232,7 @@ class Other:
         '''content window gui'''
         root = Toplevel(start.main, bg='#000000')
         root.title('Content Random')
-        root.geometry('150x155')
+        root.geometry('250x105')
         root.iconbitmap('favicon.ico')
         def get_new_win(ress, defi):
             '''new window first'''
